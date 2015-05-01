@@ -27,20 +27,21 @@ Options:
 Getting a key
 
 ```bash
-
 CONSUL_SERVER=1.2.3.4:8500
-
 $MASTER_IP=$(consulkv get "/my/master/ip")
-
 ```
 
 Setting the host IP from inside a docker container
 
 ```bash
-
 HOST_IP=$(/sbin/ip route|awk '/default/ { print $3}')
-
 consulkv set "/service/test/ip" $HOST_IP
+```
 
+Setting the IP address
+
+```bash
+IP=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
+consulkv set "/service/test/ip" $IP
 
 ```
